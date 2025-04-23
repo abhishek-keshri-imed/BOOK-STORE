@@ -1,26 +1,11 @@
 const mongoose = require("mongoose");
 
-// Define the schema for a User
 const userSchema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      required: true, // corrected 'require' to 'required'
-      unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
+    username: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    address: { type: String, required: true },
     avatar: {
       type: String,
       default:
@@ -34,27 +19,24 @@ const userSchema = new mongoose.Schema(
     favourites: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "books", // Reference to the Book model
+        ref: "books",
       },
     ],
     cart: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "books", // Reference to the Book model
+        ref: "books",
       },
     ],
     orders: [
       {
         type: mongoose.Types.ObjectId,
-        ref: "order", // Reference to the Order model
+        ref: "order",
       },
     ],
   },
-  {
-    timestamps: true, // Automatically adds createdAt and updatedAt fields
-  }
+  { timestamps: true }
 );
 
-// Create and export the User model
 const User = mongoose.model("user", userSchema);
 module.exports = User;
