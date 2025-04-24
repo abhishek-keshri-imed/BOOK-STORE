@@ -3,6 +3,7 @@ const router = require("express").Router();
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const authenticateToken = require("./userAuth");
 
 require("dotenv").config(); // Load environment variables
 
@@ -120,5 +121,51 @@ router.post("/user/sign-in", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+// Sign-in route
+router.get("/user/information", authenticateToken, async (req, res) => {
+  try {
+    const { userId } = req.user; // Access userId from the authenticated token
+    const data = await User.findById(userId).select("-password");
+    return res.status(200).json(data);
+  } catch (error) {
+    // Handle any errors that occur during the sign-in process
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+// Route to update user address
+router.put("/user/update-address", authenticateToken, async (req, res) => {
+  try {
+    const { address } = req.body; // Get the new address from the request body
+    const userId = req.user.userId; // Get the userId from the authenticated token
+
+    if (!address) {
+      return res.status(400).json({ message: "Address is required" });
+    }
+
+    // Find the user by their userId
+    const existingUser = await User.findById(userId).select("-password");
+    if (!existingUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update the user's address
+    existingUser.address = address;
+
+    // Save the updated user information
+    await existingUser.save();
+
+    // Return a success response
+    res.status(200).json({ message: "Address updated successfully", user: existingUser });
+
+  } catch (error) {
+    // Handle any errors that occur during the update process
+    console.error(error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 
 module.exports = router; // Export the router for use in the main app
