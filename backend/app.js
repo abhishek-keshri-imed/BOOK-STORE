@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const connectDB = require("./conn/conn");
 const userRoutes = require("./routes/user");
+const bookRoutes = require("./routes/book");
 
 const app = express();
 
@@ -16,6 +17,7 @@ connectDB();
 
 // API Routes
 app.use("/api/store", userRoutes);
+app.use("/api/store", bookRoutes);
 
 // Set port
 const PORT = process.env.PORT || 1000;
