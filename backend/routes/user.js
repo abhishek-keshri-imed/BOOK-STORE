@@ -158,14 +158,14 @@ router.put("/user/update-address", authenticateToken, async (req, res) => {
     await existingUser.save();
 
     // Return a success response
-    res.status(200).json({ message: "Address updated successfully", user: existingUser });
-
+    res
+      .status(200)
+      .json({ message: "Address updated successfully", user: existingUser });
   } catch (error) {
     // Handle any errors that occur during the update process
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
 
 module.exports = router; // Export the router for use in the main app
