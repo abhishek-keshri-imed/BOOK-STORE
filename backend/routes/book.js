@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 // Importing necessary modules
 const router = require("express").Router();
 const Book = require("../models/books");

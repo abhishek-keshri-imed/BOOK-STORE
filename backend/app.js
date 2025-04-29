@@ -5,6 +5,7 @@ const userRoutes = require("./routes/user");
 const bookRoutes = require("./routes/book");
 const favouritesRoutes = require("./routes/favourites");
 const cartRoutes = require("./routes/cart");
+const orderRoutes=require("./routes/order")
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use("/api/store", userRoutes);
 app.use("/api/store", bookRoutes);
 app.use("/api/store", favouritesRoutes);
 app.use("/api/store", cartRoutes);
+app.use("/api/store", orderRoutes);
 
 // Set port
 const PORT = process.env.PORT || 1000;
