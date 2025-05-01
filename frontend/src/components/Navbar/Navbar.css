@@ -1,0 +1,60 @@
+/* Navbar container styling */
+#main-navbar {
+  background-color: rgb(21, 20, 20);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo image styling */
+.navbar-logo-img {
+  height: 40px;
+  width: auto;
+}
+
+/* Brand (BookShop) styling */
+#navbar-logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+/* Navigation links container */
+#navbar-links {
+  display: flex;
+  font-size: 16px;
+}
+
+/* General nav link styling */
+.nav-link {
+  margin: 0 10px;
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+/* Hover effect */
+.nav-link:hover {
+  color: #ff8800;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #main-navbar {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  #navbar-links {
+    margin-top: 10px;
+    flex-direction: column;
+  }
+
+  .nav-link {
+    margin: 5px 0;
+  }
+}
