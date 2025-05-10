@@ -1,60 +1,108 @@
-/* Navbar container styling */
+/* Navbar base */
 #main-navbar {
   background-color: rgb(21, 20, 20);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
 }
 
-/* Logo image styling */
+/* Logo */
 .navbar-logo-img {
   height: 40px;
-  width: auto;
 }
 
-/* Brand (BookShop) styling */
 #navbar-logo {
-  font-size: 1.2rem;
+  color: white;
   font-weight: bold;
   text-decoration: none;
-  color: white;
+  font-size: 1.2rem;
 }
 
-/* Navigation links container */
-#navbar-links {
+/* Navigation links */
+.nav-links {
   display: flex;
-  font-size: 16px;
+  gap: 15px;
+  align-items: center;
 }
 
-/* General nav link styling */
 .nav-link {
-  margin: 0 10px;
   text-decoration: none;
-  font-size: 1rem;
   color: white;
-  transition: color 0.3s ease;
+  padding-top: 5px;
+  transition: 0.3s;
 }
 
-/* Hover effect */
 .nav-link:hover {
   color: #ff8800;
 }
 
-/* Responsive design */
+/* SignIn button */
+.login-button {
+  background-color: transparent;
+  border: 1px solid rgb(15, 141, 209);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.login-button:hover {
+  color: blue;
+  border-color: blue;
+  background-color: white;
+}
+
+/* SignUp button */
+.signup-button {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.signup-button:hover {
+  background-color: white;
+  color: #007bff;
+}
+
+/* Hamburger hidden on desktop */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: white;
+}
+
+/* Responsive rules */
 @media (max-width: 768px) {
-  #main-navbar {
-    flex-direction: column;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
+  .hamburger {
+    display: block;
   }
 
-  #navbar-links {
-    margin-top: 10px;
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 65px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.85); /* <== Updated: semi-transparent */
     flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    z-index: 10;
   }
 
-  .nav-link {
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-link,
+  .login-button,
+  .login-button {
+    width: 100%;
     margin: 5px 0;
+    text-align: left;
   }
 }
