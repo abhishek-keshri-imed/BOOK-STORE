@@ -7,7 +7,7 @@
   padding: 40px 40px;
   min-height: 83.4vh;            /* Adjust based on screen size */
   gap: 20px;
-  background-color: #f8f9fa;     /* Optional background */
+  background-color: white;     /* Optional background */
   overflow: hidden;  /* Prevent overflow */
 }
 
@@ -52,6 +52,17 @@
   border-radius: 20px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
+  /* 🔥 Add these lines */
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  
+}
+
+a.transparent-button,
+.transparent-button {
+  text-decoration: none !important;
 }
 
 /* On hover: change background and text color */
@@ -106,11 +117,11 @@
     max-width: 90%;  /* Scale image width for small screens */
   }
 
-  
-/* Transparent button styling */
-.transparent-button {
-  width:100%
-}
+ .transparent-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 600px) {
@@ -121,4 +132,11 @@
   .hero-left p {
     font-size: 0.9rem;  /* Adjust text for mobile readability */
   }
+
+  .transparent-button {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+ 
 }

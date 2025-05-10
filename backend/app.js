@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const cors = require("cors"); 
 const connectDB = require("./conn/conn");
 const userRoutes = require("./routes/user");
 const bookRoutes = require("./routes/book");
@@ -8,10 +9,16 @@ const cartRoutes = require("./routes/cart");
 const orderRoutes=require("./routes/order")
 
 
+
 const app = express();
 
 // Load environment variables
 dotenv.config();
+
+
+// Enable CORS for all domains (you can restrict this to specific domains later)
+app.use(cors());
+
 
 // Middleware
 app.use(express.json());

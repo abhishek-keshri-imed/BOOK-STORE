@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
+import { NavLink } from "react-router-dom";  
 import "./Navbar.css";
 
 const navItems = [
-  { label: "Home", path: "/Home", id: "nav-home" },
-  { label: "About Us", path: "/About", id: "nav-about" },
-  { label: "All Books", path: "/AllBooks", id: "nav-books" },
-  { label: "Cart", path: "/Cart", id: "nav-cart" },
-  { label: "Profile", path: "/Profile", id: "nav-profile" },
+  { label: "HOME", path: "", id: "nav-home" },
+  { label: "ABOUT", path: "/about", id: "nav-about" },
+  { label: "All BOOKS", path: "/all-books", id: "nav-books" },
+  { label: "CART", path: "/Cart", id: "nav-cart" },
+  { label: "PROFILE", path: "/Profile", id: "nav-profile" },
 ];
 
 const Navbar = () => {
@@ -27,7 +28,7 @@ const Navbar = () => {
           alt="BookShop Logo"
           className="navbar-logo-img"
         />
-        <span className="ms-2">BookHeaven</span>
+        <span className="ms-2">BOOKHEAVEN</span>
       </Link>
 
       {/* Hamburger icon */}
@@ -38,22 +39,23 @@ const Navbar = () => {
       {/* Navigation links */}
       <div className={`nav-links ${isOpen ? "open" : ""}`} id="navbar-links">
         {navItems.map(({ label, path, id }) => (
-          <Link
+          <NavLink
             to={path}
-            className="nav-link"
             id={id}
             key={id}
             onClick={closeMenu}
+            className={({ isActive }) => isActive ? "nav-link active-link" : "nav-link"}
           >
             {label}
-          </Link>
+          </NavLink>
         ))}
 
+
         <Link to="/login" className="nav-link login-button" onClick={closeMenu}>
-          LogIn
+          LOGIN
         </Link>
         <Link to="/signup" className="signup-button" onClick={closeMenu}>
-          SignUp
+          SIGNUP
         </Link>
       </div>
     </nav>

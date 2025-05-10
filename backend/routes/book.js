@@ -102,7 +102,7 @@ router.get("/books/recent", async (req, res) => {
   try {
     const recentBooks = await Book.find()
       .sort({ createdAt: -1 }) // Sort by newest first
-      .limit(4); // Limit to 4 results
+      .limit(6); // Limit to 4 results
 
     res.status(200).json(recentBooks);
   } catch (error) {

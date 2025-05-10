@@ -1,5 +1,7 @@
 import React from "react";
 import "./Hero.css";
+import { Link } from "react-router-dom";
+
 
 const Hero = () => {
   return (
@@ -13,8 +15,9 @@ const Hero = () => {
           connect with stories that matter, and build a library that reflects
           your passion.
         </p>
-         {/* Add transparent button below the paragraph */}
-          <button className="transparent-button">Explore Books</button>
+        <Link to="/all-books" className="transparent-button">
+          Explore Books
+        </Link>
       </div>
       <div className="hero-right">
         <img
