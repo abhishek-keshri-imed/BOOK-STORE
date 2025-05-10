@@ -2,3 +2,22 @@
 {
 font-family: sans-serif,serif;
 }
+
+/* Make body and html full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Wrapper for the whole page */
+.page-wrapper {
+  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content grows to fill space */
+.page-wrapper > *:not(.footer) {
+  flex: 1;
+}

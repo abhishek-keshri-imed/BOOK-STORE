@@ -3,8 +3,8 @@
   background-color: rgb(21, 20, 20);
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
+  align-items: start;
+  padding: 7px 10px;
 }
 
 /* Logo */

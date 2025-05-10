@@ -6,7 +6,7 @@ import Hero from "./pages/Hero/Hero";
 function App() {
   return (
     <>
-      <div>
+      <div className="page-wrapper">
         <Navbar/>
         <Hero/>
         <Footer/>
