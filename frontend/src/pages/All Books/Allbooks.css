@@ -1,0 +1,124 @@
+/* Main container styling */
+.main {
+  position: relative; /* Ensure the pagination is positioned relative to this container */
+  padding: 20px;
+  margin-bottom: 20px; /* Add space below for pagination */
+}
+
+/* Styling for Book Cards */
+.books-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Define 6 columns of equal width for large screens */
+  grid-template-rows: repeat(2, 1fr); /* Hardcode 2 rows of equal height */
+  gap: 20px;
+  padding: 20px;
+  overflow-y: hidden; /* Disable vertical overflow to avoid unwanted scrollbar */
+}
+
+/* Book Card Styling */
+.book-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  min-width: 180px; /* Minimum width for each card */
+  max-width: 220px; /* Maximum width for each card */
+  width: 100%; /* Allow the card to grow and shrink within the set range */
+}
+
+.book-card img {
+  width: 100%;
+  height: auto;
+  max-height: 200px; /* Fixed height for book cover */
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.book-card h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.book-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Pagination Controls */
+.pagination-buttons {
+  display: flex;
+  justify-content: center; /* Center the pagination buttons */
+  align-items: center;
+  gap: 20px; /* Space between the buttons */
+  margin-top: 20px; /* Add space after book cards */
+}
+
+.pagination-buttons button {
+  padding: 10px 20px;
+  background-color: #28a745; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.pagination-buttons button:hover {
+  background-color: #218838; /* Darker green when hovered */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.pagination-buttons button:disabled {
+  background-color: #d6d6d6;
+  cursor: not-allowed;
+}
+
+.pagination-buttons span {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Responsive Layout for smaller screens */
+@media screen and (max-width: 1024px) {
+  .books-container {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns for medium screens */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .books-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller screens */
+  }
+}
+/* Small screens: 1 column layout, centered card with increased width */
+@media screen and (max-width: 600px) {
+  .books-container {
+    display: flex; /* Switch from grid to flex */
+    flex-direction: column;
+    align-items: center; /* Center the cards horizontally */
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .book-card {
+    width: 80%; /* Make card wider */
+    height: 370px; /* Increase height for better visibility */
+    min-width: 250px; /* Optional: ensures readable content */
+  }
+
+  .pagination-buttons {
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 10px;
+  }
+
+  .pagination-buttons button {
+    width: 100%;
+    padding: 12px;
+  }
+}

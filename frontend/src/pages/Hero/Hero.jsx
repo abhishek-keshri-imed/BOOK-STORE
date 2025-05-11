@@ -1,10 +1,11 @@
 import React from "react";
 import "./Hero.css";
 import { Link } from "react-router-dom";
-
+import RecentBooks from "../../components/BookCard/BookCard";
 
 const Hero = () => {
   return (
+    <>
     <div className="hero-container">
       <div className="hero-left">
         <h1>Fuel Your Brain with Every Chapter.</h1>
@@ -27,6 +28,8 @@ const Hero = () => {
         />
       </div>
     </div>
+    <RecentBooks/>
+    </>
   );
 };
 

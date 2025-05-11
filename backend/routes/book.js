@@ -73,11 +73,25 @@ router.put("/update-book/:id", authenticateToken, async (req, res) => {
   }
 });
 
-// GET /books/all – Get all books
+// GET /get-all-books?page=1&limit=6
 router.get("/get-all-books", async (req, res) => {
   try {
-    const books = await Book.find();
-    res.status(200).json(books);
+    const page = parseInt(req.query.page) || 1; // Default to page 1
+    const limit = parseInt(req.query.limit) || 6; // Default to 6 books per page
+    const skip = (page - 1) * limit;
+    const totalBooks = await Book.countDocuments();
+
+    const books = await Book.find()
+      .sort({ createdAt: -1 }) // show latest first
+      .skip(skip)
+      .limit(limit);
+
+    res.status(200).json({
+      books,
+      totalBooks,
+      totalPages: Math.ceil(totalBooks / limit),
+      currentPage: page
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to fetch books" });

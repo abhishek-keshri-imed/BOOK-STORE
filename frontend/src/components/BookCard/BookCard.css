@@ -1,9 +1,10 @@
 .books-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Center align on all screen sizes */
-  gap: 24px;
-  padding: 20px;
+  justify-content: space-between; 
+  gap: 30px;
+  padding: 15px;
+
 }
 
 .book-card {
@@ -52,7 +53,7 @@
 
 .recent-books-heading {
   text-align: center;
-  font-size: 2.5rem; /* Large size for the heading */
+  font-size: 2rem; /* Large size for the heading */
   font-weight: bold; /* Make the font bold */
   margin-bottom: 20px; /* Space below the heading */
   color: #2c3e50; /* Dark color for better contrast */
@@ -65,4 +66,7 @@
   .recent-books-heading {
     font-size: 1.6rem; /* Smaller font size for smaller screens */
   }
+  .books-container {
+  justify-content: center; 
+}
 }

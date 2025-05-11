@@ -26,6 +26,7 @@ const RecentBooks = () => {
           <img src={book.url} alt={book.title} />
           <h3>{book.title}</h3>
           <p><strong>Author:</strong> {book.author}</p>
+         <h3><strong>Price:</strong> {book.price}</h3> 
         </div>
       ))}
     </div>
