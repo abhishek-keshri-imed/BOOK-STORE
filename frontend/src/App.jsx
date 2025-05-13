@@ -4,6 +4,7 @@ import Footer from "./components/Footer/Footer";
 import Home from "./pages/Hero/Hero";
 import About from "./pages/About/About";
 import Allbooks from "./pages/All Books/Allbooks";
+import ViewBook from "./components/ViewBookDetail/ViewBookDetail"
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -18,6 +19,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About/>} />
           <Route path="/all-books" element={<Allbooks/>} />
+          <Route path="/get-book/:id" element={<ViewBook/>} />
         </Routes>
         <Footer />
       </div>

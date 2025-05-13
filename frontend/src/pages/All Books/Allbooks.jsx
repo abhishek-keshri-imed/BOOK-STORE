@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Allbooks.css";
+import { Link } from "react-router-dom";
 
 const Allbooks = () => {
   const [books, setBooks] = useState([]);
@@ -10,7 +11,7 @@ const Allbooks = () => {
   useEffect(() => {
     // Fetch books data when the page changes
     axios
-      .get(`http://localhost:1000/api/store/get-all-books?page=${currentPage}&limit=6`)
+      .get(`http://localhost:1000/api/store/get-all-books?page=${currentPage}&limit=12`)
       .then((res) => {
         setBooks(res.data.books);
         setTotalPages(res.data.totalPages);
@@ -32,12 +33,18 @@ const Allbooks = () => {
       
       <div className="books-container">
         {books.map((book) => (
-          <div className="book-card" key={book._id}>
+          <Link
+            to={`/get-book/${book._id}`}
+            key={book._id}
+            className="recent-book-card-link"
+          >
+          <div className="book-card">
             <img src={book.url} alt={book.title} />
             <h3>{book.title}</h3>
             <p><strong>Author:</strong> {book.author}</p>
             <h3><strong>Price:</strong> {book.price}</h3>
           </div>
+          </Link>
         ))}
       </div>
 
