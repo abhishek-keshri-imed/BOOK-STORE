@@ -1,10 +1,20 @@
 /* MAIN CONTAINER */
 .view-book-container {
-  height: 800px;              /* Increased height */
+  height: 90vh;              /* Increased height */
   width: 100%;
   padding: 40px 60px;         /* Padding inside container */
   box-sizing: border-box;
   background-color: #f9f9f9;  /* Optional background */
+}
+
+/* Apply a fade-in effect */
+.view-book-container {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.view-book-container.loaded {
+  opacity: 1;
 }
 
 /* FLEX SECTION */

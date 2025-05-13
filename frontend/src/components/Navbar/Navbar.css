@@ -5,6 +5,9 @@
   justify-content: space-between;
   align-items: start;
   padding: 7px 10px;
+ height: 280px;        /* Set a fixed height */
+  flex-grow: 0;         /* Prevent child elements from stretching */
+  
 }
 
 /* Logo */

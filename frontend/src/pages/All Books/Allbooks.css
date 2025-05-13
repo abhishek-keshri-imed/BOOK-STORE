@@ -4,6 +4,14 @@
   padding: 20px;
   margin-bottom: 20px; /* Add space below for pagination */
 }
+.books-container {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.books-container.loaded {
+  opacity: 1;
+}
 
 /* Styling for Book Cards */
 .books-container {
@@ -120,5 +128,28 @@
   .pagination-buttons button {
     width: 100%;
     padding: 12px;
+  }
+}
+
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid #ccc;
+  border-top: 6px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
