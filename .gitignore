@@ -29,6 +29,4 @@ coverage/
 # Ignore npm debug logs
 npm-debug.log
 
-# Ignore package-lock.json if using Yarn (optional)
-# yarn.lock
-package-lock.json
+

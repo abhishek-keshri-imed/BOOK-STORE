@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom"; // for navigation
 import "./Signup.css";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -18,13 +21,15 @@ const Signup = () => {
     address: "",
   });
 
+  const [backendError, setBackendError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
   // Regex patterns
   const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const usernamePattern = /^[a-zA-Z][a-zA-Z0-9_-]{3,}$/;
   const passwordPattern =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
-  // Realtime field validation
   const validateField = (fieldName, value) => {
     let error = "";
 
@@ -81,7 +86,6 @@ const Signup = () => {
     }));
   };
 
-  // Update field and validate on change
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -93,18 +97,51 @@ const Signup = () => {
     validateField(name, value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validate all fields on submit
+    // Validate all fields
     Object.keys(formData).forEach((field) =>
       validateField(field, formData[field])
     );
 
+    // Check if any errors
     const hasErrors = Object.values(errors).some((err) => err !== "");
-    if (!hasErrors) {
-      console.log("Form submitted", formData);
-      // Perform API call here
+    if (hasErrors) return;
+
+    try {
+      const response = await fetch("http://localhost:1000/api/store/user/sign-up", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+          address: formData.address,
+        }),
+      });
+
+      if (!response.ok) {
+        // Backend responded with error
+        const errorData = await response.json();
+        setBackendError(errorData.message || "An error occurred");
+        setSuccessMessage("");
+      } else {
+        // Signup successful
+        setSuccessMessage("Signup successful! Redirecting to login...");
+        setBackendError("");
+        // Redirect to login after short delay to show message
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
+      }
+    } catch (error) {
+      // Network or unexpected error
+      console.error("Signup failed:", error); // Log the error for debugging
+      setBackendError("Network error. Please try again.");
+      setSuccessMessage("");
     }
   };
 
@@ -113,7 +150,20 @@ const Signup = () => {
       <div className="container">
         <div className="formContainer">
           <h2 className="title">Signup Form</h2>
-          <form className="form" onSubmit={handleSubmit}>
+
+          {/* Show backend error message */}
+          {backendError && (
+            <p style={{ color: "red", marginBottom: "10px" }}>{backendError}</p>
+          )}
+
+          {/* Show success message */}
+          {successMessage && (
+            <p style={{ color: "green", marginBottom: "10px" }}>
+              {successMessage}
+            </p>
+          )}
+
+          <form className="form" onSubmit={handleSubmit} noValidate>
             <label htmlFor="username">Username</label>
             <input
               type="text"
@@ -122,9 +172,7 @@ const Signup = () => {
               value={formData.username}
               onChange={handleChange}
             />
-            {errors.username ? (
-              <p style={{ color: "red" }}>{errors.username}</p>
-            ) : null}
+            {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
 
             <label htmlFor="email">Email</label>
             <input
@@ -134,9 +182,7 @@ const Signup = () => {
               value={formData.email}
               onChange={handleChange}
             />
-            {errors.email ? (
-              <p style={{ color: "red" }}>{errors.email}</p>
-            ) : null}
+            {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
 
             <label htmlFor="password">Password</label>
             <input
@@ -146,9 +192,7 @@ const Signup = () => {
               value={formData.password}
               onChange={handleChange}
             />
-            {errors.password ? (
-              <p style={{ color: "red" }}>{errors.password}</p>
-            ) : null}
+            {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
 
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
@@ -158,9 +202,9 @@ const Signup = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
             />
-            {errors.confirmPassword ? (
+            {errors.confirmPassword && (
               <p style={{ color: "red" }}>{errors.confirmPassword}</p>
-            ) : null}
+            )}
 
             <label htmlFor="address">Address</label>
             <textarea
@@ -169,9 +213,7 @@ const Signup = () => {
               value={formData.address}
               onChange={handleChange}
             />
-            {errors.address ? (
-              <p style={{ color: "red" }}>{errors.address}</p>
-            ) : null}
+            {errors.address && <p style={{ color: "red" }}>{errors.address}</p>}
 
             <button type="submit" className="button">
               Submit
