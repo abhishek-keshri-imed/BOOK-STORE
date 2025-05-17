@@ -6,9 +6,8 @@ import About from "./pages/About/About";
 import Allbooks from "./pages/All Books/Allbooks";
 import ViewBook from "./components/ViewBookDetail/ViewBookDetail"
 import Signup from "./pages/Signup/Signup";
-
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login/Login";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -21,6 +20,7 @@ function App() {
           <Route path="/all-books" element={<Allbooks/>} />
           <Route path="/get-book/:id" element={<ViewBook/>} />
           <Route path="/signup" element={<Signup/>} />
+           <Route path="/login" element={<Login/>} />
         </Routes>
         <Footer />
       </div>

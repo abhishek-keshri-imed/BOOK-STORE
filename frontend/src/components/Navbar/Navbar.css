@@ -47,12 +47,20 @@
   padding: 6px 12px;
   border-radius: 4px;
   font-weight: 500;
+  min-width: 100px;
+  text-align: center;
 }
 
 .login-button:hover {
   color: blue;
   border-color: blue;
   background-color: white;
+}
+
+.login-button.active {
+  color: #ff8800;
+  background-color: white;
+  border-color: blue;
 }
 
 /* SignUp button */
@@ -63,6 +71,8 @@
   border-radius: 4px;
   text-decoration: none;
   font-weight: 500;
+  min-width: 100px;
+  text-align: center;
 }
 
 .signup-button:hover {
