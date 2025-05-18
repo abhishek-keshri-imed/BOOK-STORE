@@ -123,3 +123,10 @@
   color: #ff8800 !important;
   font-weight: bold;
 }
+
+.nav-icon {
+  margin-right: 6px;
+  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+}

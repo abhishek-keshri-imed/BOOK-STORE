@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaBars } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
-
+import { FaBars, FaShoppingCart, FaUser } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
@@ -11,7 +9,6 @@ const Navbar = () => {
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  // 🛠️ Build navItems freshly every render to avoid duplicates
   const baseItems = [
     { label: "HOME", path: "/", id: "nav-home" },
     { label: "ABOUT", path: "/about", id: "nav-about" },
@@ -20,8 +17,8 @@ const Navbar = () => {
 
   const authItems = isAuthenticated
     ? [
-        { label: "CART", path: "/cart", id: "nav-cart" },
-        { label: "PROFILE", path: "/profile", id: "nav-profile" },
+        { label: "CART", path: "/cart", id: "nav-cart", icon: <FaShoppingCart /> },
+        { label: "PROFILE", path: "/profile", id: "nav-profile", icon: <FaUser /> },
       ]
     : [];
 
@@ -32,12 +29,7 @@ const Navbar = () => {
 
   return (
     <nav className="navbar p-3" id="main-navbar">
-      {/* Logo */}
-      <Link
-        to="/"
-        className="navbar-brand d-flex align-items-center"
-        id="navbar-logo"
-      >
+      <Link to="/" className="navbar-brand d-flex align-items-center" id="navbar-logo">
         <img
           src="https://pngfile.net/public/uploads/preview/book-stack-transparent-image-png-4381744311095xatjglpsxn.png"
           alt="BookShop Logo"
@@ -46,14 +38,12 @@ const Navbar = () => {
         <span className="ms-2">BOOKHEAVEN</span>
       </Link>
 
-      {/* Hamburger icon */}
       <div className="hamburger" onClick={toggleMenu}>
         <FaBars size={24} />
       </div>
 
-      {/* Navigation links */}
       <div className={`nav-links ${isOpen ? "open" : ""}`} id="navbar-links">
-        {navItems.map(({ label, path, id }) => (
+        {navItems.map(({ label, path, id, icon }) => (
           <NavLink
             to={path}
             id={id}
@@ -63,11 +53,10 @@ const Navbar = () => {
               isActive ? "nav-link active-link" : "nav-link"
             }
           >
-            {label}
+            {icon && <span className="nav-icon">{icon}</span>} {label}
           </NavLink>
         ))}
 
-        {/* Only show login/signup when not authenticated */}
         {!isAuthenticated && (
           <>
             <NavLink to="/login" className="nav-link login-button">

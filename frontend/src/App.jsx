@@ -1,30 +1,49 @@
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "./store/authSlice";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Hero/Hero";
 import About from "./pages/About/About";
 import Allbooks from "./pages/All Books/Allbooks";
-import ViewBook from "./components/ViewBookDetail/ViewBookDetail"
+import ViewBook from "./components/ViewBookDetail/ViewBookDetail";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
+    const role = localStorage.getItem("role");
+
+    if (token) {
+      dispatch(
+        loginSuccess({
+          token,
+          userId,
+          role,
+        })
+      );
+    }
+  }, [dispatch]);
+
   return (
-    <>
-      <div className="page-wrapper">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/all-books" element={<Allbooks/>} />
-          <Route path="/get-book/:id" element={<ViewBook/>} />
-          <Route path="/signup" element={<Signup/>} />
-           <Route path="/login" element={<Login/>} />
-        </Routes>
-        <Footer />
-      </div>
-    </>
+    <div className="page-wrapper">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/all-books" element={<Allbooks />} />
+        <Route path="/get-book/:id" element={<ViewBook />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+      <Footer />
+    </div>
   );
 }
 
