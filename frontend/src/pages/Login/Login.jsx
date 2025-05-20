@@ -92,7 +92,7 @@ const Login = () => {
         return;
       }
 
-      // ✅ Login success - Save info in localStorage
+      //  Login success - Save info in localStorage
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId || "");
       localStorage.setItem("role", data.role || "");
@@ -113,7 +113,11 @@ const Login = () => {
       setBackendError("");
 
       setTimeout(() => {
-        navigate("/");
+        if (data.role === "admin") {
+          navigate("/admin-dashboard"); // Adjust this path to match your route
+        } else {
+          navigate("/user-dashboard"); // Regular user homepage
+        }
       }, 1000);
     } catch (error) {
       console.error("Login Error:", error);

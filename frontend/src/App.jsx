@@ -11,7 +11,8 @@ import ViewBook from "./components/ViewBookDetail/ViewBookDetail";
 import Signup from "./pages/Signup/Signup";
 import Login from "./pages/Login/Login";
 import { Routes, Route } from "react-router-dom";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const dispatch = useDispatch();
 
@@ -34,6 +35,7 @@ function App() {
   return (
     <div className="page-wrapper">
       <Navbar />
+      <ToastContainer position="top-center" autoClose={1000} />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
