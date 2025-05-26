@@ -1,29 +1,25 @@
-/* Main container styling */
 .main {
-  position: relative; /* Ensure the pagination is positioned relative to this container */
+  position: relative;
   padding: 20px;
-  margin-bottom: 20px; /* Add space below for pagination */
-}
-.books-container {
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
+  margin-bottom: 20px;
 }
 
-.books-container.loaded {
-  opacity: 1;
-}
-
-/* Styling for Book Cards */
+/* Books container with dynamic columns */
 .books-container {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* Define 6 columns of equal width for large screens */
-  grid-template-rows: repeat(2, 1fr); /* Hardcode 2 rows of equal height */
-  gap: 20px;
-  padding: 20px;
-  overflow-y: hidden; /* Disable vertical overflow to avoid unwanted scrollbar */
+  grid-template-columns: repeat(6, 1fr); /* default: 6 columns */
+  gap: 20px; /* equal gap between books */
+  opacity: 1;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  padding: 10px 0;
+  overflow-x: hidden;
 }
 
-/* Book Card Styling */
+/* If user is NOT logged in, add this class to main container */
+.main.logged-out .books-container {
+  grid-template-columns: repeat(7, 1fr); /* 7 columns */
+}
+
 .book-card {
   border: 1px solid #ddd;
   padding: 10px;
@@ -31,125 +27,73 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  min-width: 180px; /* Minimum width for each card */
-  max-width: 220px; /* Maximum width for each card */
-  width: 100%; /* Allow the card to grow and shrink within the set range */
+  width: 100%;
 }
 
 .book-card img {
   width: 100%;
   height: auto;
-  max-height: 200px; /* Fixed height for book cover */
+  max-height: 200px;
   object-fit: cover;
   margin-bottom: 10px;
 }
 
-.book-card h3 {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-bottom: 5px;
+.book-card h5 {
+  margin: 8px 0;
 }
 
-.book-card p {
-  font-size: 1rem;
-  color: #555;
-}
-
-/* Pagination Controls */
+/* Pagination styles */
 .pagination-buttons {
-  display: flex;
-  justify-content: center; /* Center the pagination buttons */
-  align-items: center;
-  gap: 20px; /* Space between the buttons */
-  margin-top: 20px; /* Add space after book cards */
-}
-
-.pagination-buttons button {
-  padding: 10px 20px;
-  background-color: #28a745; /* Green background */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.pagination-buttons button:hover {
-  background-color: #218838; /* Darker green when hovered */
-  transform: scale(1.05); /* Slightly enlarge the button on hover */
-}
-
-.pagination-buttons button:disabled {
-  background-color: #d6d6d6;
-  cursor: not-allowed;
-}
-
-.pagination-buttons span {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-/* Responsive Layout for smaller screens */
-@media screen and (max-width: 1024px) {
-  .books-container {
-    grid-template-columns: repeat(4, 1fr); /* 4 columns for medium screens */
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .books-container {
-    grid-template-columns: repeat(3, 1fr); /* 3 columns for smaller screens */
-  }
-}
-/* Small screens: 1 column layout, centered card with increased width */
-@media screen and (max-width: 600px) {
-  .books-container {
-    display: flex; /* Switch from grid to flex */
-    flex-direction: column;
-    align-items: center; /* Center the cards horizontally */
-    padding: 20px;
-    gap: 20px;
-  }
-
-  .book-card {
-    width: 80%; /* Make card wider */
-    height: 370px; /* Increase height for better visibility */
-    min-width: 250px; /* Optional: ensures readable content */
-  }
-
-  .pagination-buttons {
-    flex-direction: column; /* Stack buttons vertically */
-    gap: 10px;
-  }
-
-  .pagination-buttons button {
-    width: 100%;
-    padding: 12px;
-  }
-}
-
-
-.spinner-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  gap: 10px;
+  margin-top: 50px;
+  padding-bottom: 10px;
 }
 
-.loading-spinner {
-  width: 50px;
-  height: 50px;
-  border: 6px solid #ccc;
-  border-top: 6px solid #007bff;
+.pagination-buttons button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-weight: 300;
+  font-size: 10px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.4);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10px;
+  aspect-ratio: 1 / 1;
+}
+
+.pagination-buttons button:hover:not(:disabled) {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.6);
+  transform: scale(1.1);
+}
+
+.pagination-buttons button:disabled {
+  background-color: #c0c0c0;
+  box-shadow: none;
+  cursor: not-allowed;
+  color: #666;
+  transform: none;
+  pointer-events: none;
+}
+
+.pagination-buttons button:focus-visible {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+.pagination-buttons button.prev-btn,
+.pagination-buttons button.next-btn {
+  font-size: 10px;
+  padding: 6px 10px;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }

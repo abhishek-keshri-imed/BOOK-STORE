@@ -1,27 +1,19 @@
 import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { FaBars, FaUser } from "react-icons/fa";
-import { useSelector, useDispatch } from "react-redux";
-import { logout } from "../../store/authSlice";
+import { useSelector} from "react-redux";
 import { FaSignOutAlt } from "react-icons/fa";
-import { toast } from "react-toastify";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userRole =
     useSelector((state) => state.auth.role) || localStorage.getItem("role");
 
-  const handleLogout = () => {
-    toast.success("You have been logged out.");
-    localStorage.clear();
-    dispatch(logout());
-    navigate("/");
-  };
+  
 
   let homePath = "/";
   if (isAuthenticated && userRole === "admin") {
@@ -41,28 +33,13 @@ const Navbar = () => {
 
     if (userRole === "user") {
       return [
-        { label: "HOME", path: homePath, id: "nav-home" },
-        { label: "ALL BOOKS", path: "/all-books", id: "nav-books" },
-        {
-          label: "LOGOUT",
-          action: handleLogout,
-          id: "nav-logout",
-          icon: <FaSignOutAlt />,
-        },
+        
       ];
     }
 
     if (userRole === "admin") {
       return [
-        { label: "HOME", path: homePath, id: "nav-home" },
-        { label: "ALL BOOKS", path: "/all-books", id: "nav-books" },
-        { label: "MANAGE BOOKS", path: "/admin/books", id: "nav-manage-books" },
-        {
-          label: "LOGOUT",
-          action: handleLogout,
-          id: "nav-logout",
-          icon: <FaSignOutAlt />,
-        },
+        
       ];
     }
 

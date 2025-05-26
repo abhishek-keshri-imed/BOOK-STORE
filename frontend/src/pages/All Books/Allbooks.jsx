@@ -7,77 +7,87 @@ const Allbooks = () => {
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [isLoaded, setIsLoaded] = useState(false);  // Track loading state
+  const [animating, setAnimating] = useState(false);
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  const limit = isLoggedIn ? 6 : 7;
 
   useEffect(() => {
-    // Fetch books data when the page changes
-    setIsLoaded(false); // Reset before fetching
-    axios
-      .get(`http://localhost:1000/api/store/get-all-books?page=${currentPage}&limit=12`)
-      .then((res) => {
-        setBooks(res.data.books);
-        setTotalPages(res.data.totalPages);
-        // Add a delay before showing the content
-      setTimeout(() => {
-        setIsLoaded(true);
-      }, 100); // 5s delay
-    })
-      .catch((err) => {
-        console.error("Error fetching books:", err);
-      });
+    setAnimating(true); // start slide-out animation
+
+    const timer = setTimeout(() => {
+      axios
+        .get(`http://localhost:1000/api/store/get-all-books?page=${currentPage}&limit=${limit}`)
+        .then((res) => {
+          setBooks(res.data.books);
+          setTotalPages(res.data.totalPages);
+          setAnimating(false); // start slide-in animation
+        })
+        .catch((err) => {
+          console.error(err);
+          setAnimating(false);
+        });
+    }, 400); // longer delay for smoother animation
+
+    return () => clearTimeout(timer);
   }, [currentPage]);
 
-  if (!isLoaded) {
-    return (
-   <div className="spinner-container">
-      <div className="loading-spinner"></div>
-    </div>
-    )
-  }
-
-
-  // Handle page changes
   const handlePageChange = (newPage) => {
-    if (newPage > 0 && newPage <= totalPages) {
+    if (newPage > 0 && newPage <= totalPages && !animating) {
       setCurrentPage(newPage);
     }
   };
 
   return (
-    <div className="main">
-      <div className={`books-container   ${isLoaded ? 'loaded' : ''}`}>
+    <div className={`main ${isLoggedIn ? "logged-in" : "logged-out"}`}>
+      <div className={`books-container ${animating ? "slide-out" : "slide-in"}`}>
         {books.map((book) => (
           <Link
             to={`/get-book/${book._id}`}
             key={book._id}
             className="recent-book-card-link"
           >
-          <div className="book-card">
-            <img src={book.url} alt={book.title} />
-            <h3>{book.title}</h3>
-            <p><strong>Author:</strong> {book.author}</p>
-            <h3><strong>Price:</strong> {book.price}</h3>
-          </div>
+            <div className="book-card">
+              <img src={book.url} alt={book.title} />
+              <h5>{book.title}</h5>
+              <h5>
+                <strong>Price:</strong> {book.price}
+              </h5>
+            </div>
           </Link>
         ))}
       </div>
 
-      {/* Pagination Controls */}
       <div className="pagination-buttons">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
+          disabled={currentPage === 1 || animating}
+          className="prev-btn"
+          aria-label="Previous Page"
         >
-          Prev
+          &#9664;
         </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
+        {[...Array(Math.min(totalPages, 5)).keys()].map((i) => {
+          const pageNum = i + 1;
+          return (
+            <button
+              key={pageNum}
+              onClick={() => handlePageChange(pageNum)}
+              disabled={pageNum === currentPage || animating}
+              className={pageNum === currentPage ? "active" : ""}
+              aria-current={pageNum === currentPage ? "page" : undefined}
+            >
+              {pageNum}
+            </button>
+          );
+        })}
         <button
           onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === totalPages || books.length === 0}
+          disabled={currentPage === totalPages || animating}
+          className="next-btn"
+          aria-label="Next Page"
         >
-          Next
+          &#9654;
         </button>
       </div>
     </div>
