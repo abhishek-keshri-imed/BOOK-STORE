@@ -168,4 +168,26 @@ router.put("/user/update-address", authenticateToken, async (req, res) => {
   }
 });
 
+router.patch("/user/update-profile-pic", authenticateToken, async (req, res) => {
+  try {
+    const { userId } = req.user;
+    const { profileImage } = req.body;  // or avatar, based on your fix
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { avatar: profileImage },  
+      { new: true, select: "-password" }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "Profile picture updated", user });
+  } catch (error) {
+    console.error("Error in update-profile-pic route:", error);
+    res.status(500).json({ message: "Error updating profile picture" });
+  }
+});
+
+
 module.exports = router; // Export the router for use in the main app

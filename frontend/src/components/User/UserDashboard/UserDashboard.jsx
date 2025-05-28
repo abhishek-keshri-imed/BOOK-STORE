@@ -52,6 +52,11 @@ const UserDashboard = () => {
       });
   }, []);
 
+  const profileImage =
+    user?.avatar && user.avatar.trim() !== ""
+      ? user.avatar
+      : "http://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-Image.png";
+
   const handleLogout = () => {
     toast.success("You have been logged out.");
     localStorage.clear(); // Clear token, user info etc.
@@ -76,7 +81,7 @@ const UserDashboard = () => {
       <aside className={`sidebar ${sidebarOpen ? "open" : ""}`}>
         <div className="user-profile">
           <img
-            src="https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-Transparent-Clip-Art-PNG.png"
+            src={profileImage}
             alt="User Logo"
             className="user-logo"
           />

@@ -97,3 +97,38 @@
   padding: 6px 10px;
   border-radius: 50%;
 }
+
+.search-bar {
+  width: 60%;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  display: block;
+  padding: 12px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.2);
+}
+
+  @media (max-width: 768px) {
+  .books-container {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .search-bar {
+    width: 90%;
+  }
+
+  .pagination-buttons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  }

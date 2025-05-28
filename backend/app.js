@@ -6,22 +6,19 @@ const userRoutes = require("./routes/user");
 const bookRoutes = require("./routes/book");
 const favouritesRoutes = require("./routes/favourites");
 const cartRoutes = require("./routes/cart");
-const orderRoutes=require("./routes/order")
-
-
+const orderRoutes = require("./routes/order");
 
 const app = express();
 
 // Load environment variables
 dotenv.config();
 
-
-// Enable CORS for all domains (you can restrict this to specific domains later)
+// Enable CORS for all domains
 app.use(cors());
 
-
-// Middleware
-app.use(express.json());
+// Increase JSON body size limit to accept large base64 images
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ limit: "10mb", extended: true }));
 
 // Connect to MongoDB
 connectDB();
