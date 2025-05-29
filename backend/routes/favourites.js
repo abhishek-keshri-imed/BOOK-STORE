@@ -5,7 +5,7 @@ const Book = require("../models/books");
 const authenticateToken = require("./userAuth");
 
 // Add a book to favourites
-router.post("/add-book-to-favoutite/:bookId",authenticateToken,async (req, res) => {
+router.post("/add-book-to-favourites/:bookId",authenticateToken,async (req, res) => {
     try {
       const userId = req.user.userId;
       const { bookId } = req.params;
@@ -35,6 +35,7 @@ router.post("/add-book-to-favoutite/:bookId",authenticateToken,async (req, res) 
       console.error(error);
       res.status(500).json({ message: "Internal server error" });
     }
+    
   }
 );
 

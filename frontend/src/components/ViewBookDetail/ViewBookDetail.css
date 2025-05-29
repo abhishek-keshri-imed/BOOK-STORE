@@ -5,10 +5,6 @@
   padding: 40px 60px;         /* Padding inside container */
   box-sizing: border-box;
   background-color: #f9f9f9;  /* Optional background */
-}
-
-/* Apply a fade-in effect */
-.view-book-container {
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
@@ -42,6 +38,12 @@
   object-fit: cover;
   border-radius: 12px;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.book-image:hover {
+  transform: scale(1.10);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
 }
 
 /* CONTENT SECTION */
@@ -65,21 +67,48 @@
   line-height: 1.6;
 }
 
-/* Mobile responsiveness */
+/* BUTTONS SECTION */
+.book-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.book-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.book-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.book-btn.enabled:hover:not(:disabled) {
+  transform: scale(1.2);
+}
+
+/* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
   .view-book-container {
-    padding: 20px 30px; /* Reduced padding for smaller screens */
+    padding: 20px 30px;
   }
 
   .view-book {
-    flex-direction: column; /* Stack elements vertically on smaller screens */
-    align-items: center;     /* Center the content */
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
   }
 
   .book-image {
-    width: 250px;  /* Smaller width for the book image on mobile */
-    height: 400px; /* Adjust height for smaller screens */
+    width: 250px;
+    height: 400px;
   }
 
   .book-content {
@@ -87,9 +116,8 @@
     padding-left: 0;
     text-align: center;
   }
-}
 
-.book-image:hover {
-  transform: scale(1.10);  /* Zoom in effect */
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+  .book-actions {
+    justify-content: center;
+  }
 }
