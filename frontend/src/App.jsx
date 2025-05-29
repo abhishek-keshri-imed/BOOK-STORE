@@ -80,6 +80,7 @@ function App() {
             <Route path="favorites" element={<Favourites />} />
             <Route path="order-history" element={<OrderHistory />} />
             <Route path="manage-address" element={<ManageAddress />} />
+             <Route path="get-book/:id" element={<ViewBook />} /> 
           </Route>
 
           {/* Nested Dashboard Routes */}

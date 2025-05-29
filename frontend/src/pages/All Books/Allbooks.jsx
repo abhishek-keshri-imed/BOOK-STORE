@@ -12,7 +12,7 @@ const Allbooks = () => {
   const [animating, setAnimating] = useState(false);
 
   const isLoggedIn = !!localStorage.getItem("token");
-const limit = isLoggedIn ? 6 : 7;
+  const limit = isLoggedIn ? 6 : 7;
 
   useEffect(() => {
     setAnimating(true);
@@ -31,7 +31,7 @@ const limit = isLoggedIn ? 6 : 7;
     }, 400);
 
     return () => clearTimeout(timer);
-  }, [currentPage]);
+  }, [currentPage, limit]);
 
   useEffect(() => {
     const filtered = books.filter((book) =>
@@ -59,8 +59,12 @@ const limit = isLoggedIn ? 6 : 7;
       <div className={`books-container ${animating ? "slide-out" : "slide-in"}`}>
         {filteredBooks.map((book) => (
           <Link
-            to={`/get-book/${book._id}`}
             key={book._id}
+            to={
+              isLoggedIn
+                ? `/user-dashboard/get-book/${book._id}`
+                : `/get-book/${book._id}`
+            }
             className="recent-book-card-link"
           >
             <div className="book-card">

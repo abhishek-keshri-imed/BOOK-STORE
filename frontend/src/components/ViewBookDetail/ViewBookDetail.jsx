@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa"; // import icons
+import { FaHeart, FaRegHeart, FaShoppingCart } from "react-icons/fa";
 import "./ViewBookDetail.css";
 
 const ViewBookDetail = () => {
@@ -16,35 +16,67 @@ const ViewBookDetail = () => {
   const [isCartAdded, setIsCartAdded] = useState(false);
 
   useEffect(() => {
+    // Fetch book details
     fetch(`http://localhost:1000/api/store/get-book/${id}`)
       .then((response) => response.json())
       .then((data) => {
         setBook(data);
         setIsLoaded(true);
-        // Optional: check if already favorited or in cart, 
-        // for demo setting false initially
       })
       .catch((error) => console.error("Error fetching book details:", error));
   }, [id]);
 
-  const handleAddToFav = () => {
-    if (!isLoggedIn) {
-      toast.warning("You should log in to add to favourites");
-      return;
-    }
-    fetch(`http://localhost:1000/api/store/add-book-to-favourites/${id}`, {
-      method: "POST",
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    // Check if this book is already in user's favourites on component mount
+    fetch(`http://localhost:1000/api/store/get-all-favourites`, {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success(data.message);
-        setIsFavAdded(true);
+        if (data.favourites) {
+          const favIds = data.favourites.map((book) => book._id || book);
+          setIsFavAdded(favIds.includes(id));
+        }
       })
-      .catch(() => toast.error("Failed to add to favourites"));
+      .catch((err) => {
+        console.error("Error checking favourites:", err);
+      });
+  }, [id, isLoggedIn, token]);
+
+  // Toggle favourite (add/remove)
+  const handleToggleFavourite = () => {
+    if (!isLoggedIn) {
+      toast.warning("You should log in to manage favourites");
+      return;
+    }
+
+    const url = isFavAdded
+      ? `http://localhost:1000/api/store/remove-book-from-favoutite/${id}`
+      : `http://localhost:1000/api/store/add-book-to-favourites/${id}`;
+
+    const method = isFavAdded ? "DELETE" : "POST";
+
+    fetch(url, {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (res.ok) {
+          toast.success(data.message);
+          setIsFavAdded(!isFavAdded);
+        } else {
+          toast.error(data.message || "Failed to update favourites");
+        }
+      })
+      .catch(() => toast.error("Failed to update favourites"));
   };
 
   const handleAddToCart = () => {
@@ -52,7 +84,6 @@ const ViewBookDetail = () => {
       toast.warning("You should log in to add to cart");
       return;
     }
-    // Demo: just update state and toast
     toast.success("Book added to cart");
     setIsCartAdded(true);
   };
@@ -67,26 +98,23 @@ const ViewBookDetail = () => {
         </div>
         <div className="book-content">
           <h2>{book.title}</h2>
-          <p><strong>Author:</strong> {book.author}</p>
-          <p><strong>Price:</strong> ₹{book.price}</p>
-          <p><strong>Language:</strong> {book.language}</p>
+          <p>
+            <strong>Author:</strong> {book.author}
+          </p>
+          <p>
+            <strong>Price:</strong> ₹{book.price}
+          </p>
+          <p>
+            <strong>Language:</strong> {book.language}
+          </p>
           <div className="book-description">{book.desc}</div>
 
           <div className="book-actions">
             <button
-              onClick={() => {
-                if (!isLoggedIn) {
-                  toast.info("You should log in");
-                  return;
-                }
-                handleAddToFav();
-              }}
-              onMouseOver={() => {
-                if (!isLoggedIn) toast.info("You should log in");
-              }}
+              onClick={handleToggleFavourite}
               className={`book-btn ${isLoggedIn ? "enabled" : "disabled"}`}
               disabled={!isLoggedIn}
-              aria-label="Add to favourites"
+              aria-label="Toggle favourite"
               type="button"
             >
               {isFavAdded ? (
@@ -94,7 +122,7 @@ const ViewBookDetail = () => {
               ) : (
                 <FaRegHeart size={25} />
               )}
-              {" "} Add to Favourites
+              {" "} {isFavAdded ? "Remove from Favourites" : "Add to Favourites"}
             </button>
 
             <button
@@ -104,9 +132,6 @@ const ViewBookDetail = () => {
                   return;
                 }
                 handleAddToCart();
-              }}
-              onMouseOver={() => {
-                if (!isLoggedIn) toast.info("You should log in");
               }}
               className={`book-btn ${isLoggedIn ? "enabled" : "disabled"}`}
               disabled={!isLoggedIn}
