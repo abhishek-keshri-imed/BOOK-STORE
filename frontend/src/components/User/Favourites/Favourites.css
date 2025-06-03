@@ -1,0 +1,47 @@
+.favourites-container {
+  padding: 5px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.favourites-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.favourite-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: #fafafa;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.favourite-card:hover {
+  transform: translateY(-5px);
+}
+
+.favourite-book-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .favourites-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .favourite-card {
+    width: 90%;
+  }
+}
