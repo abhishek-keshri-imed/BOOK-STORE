@@ -54,12 +54,20 @@ const Navbar = () => {
   return (
     <nav className="navbar p-3" id="main-navbar">
       <Link
-        to="/"
+        to={isAuthenticated ? "#" : "/"}
         className="navbar-brand d-flex align-items-center"
         id="navbar-logo"
+        onClick={(e)=>{
+         if (isAuthenticated)
+         {
+          e.preventDefault(); // block navigation
+         }
+
+        }}
+        
       >
         <img
-          src="https://pngfile.net/public/uploads/preview/book-stack-transparent-image-png-4381744311095xatjglpsxn.png"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStzhq6ESJxW7LOn_61kgRwFSChCRoNlbqSkQ&s"
           alt="BookShop Logo"
           className="navbar-logo-img"
         />

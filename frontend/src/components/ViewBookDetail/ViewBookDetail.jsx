@@ -70,7 +70,7 @@ const ViewBookDetail = () => {
       .then(async (res) => {
         const data = await res.json();
         if (res.ok) {
-          toast.success(data.message);
+          toast.info(data.message);
           setIsFavAdded(!isFavAdded);
         } else {
           toast.error(data.message || "Failed to update favourites");
@@ -79,13 +79,72 @@ const ViewBookDetail = () => {
       .catch(() => toast.error("Failed to update favourites"));
   };
 
-  const handleAddToCart = () => {
-    if (!isLoggedIn) {
-      toast.warning("You should log in to add to cart");
-      return;
+  useEffect(() => {
+  if (!isLoggedIn) return;
+
+  fetch(`http://localhost:1000/api/store/get-all-cart`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.carts) {
+        const cartIds = data.carts.map((book) => book._id || book);
+        setIsCartAdded(cartIds.includes(id));
+      }
+    })
+    .catch((err) => {
+      console.error("Error checking cart:", err);
+    });
+}, [id, isLoggedIn, token]);
+
+
+  // Toggle Cart (add/remove)
+  const handleAddToCart = async () => {
+    if (!isLoggedIn) return;
+
+    try {
+      if (isCartAdded) {
+        // Remove book from cart
+        const res = await fetch(
+          `http://localhost:1000/api/store/remove-book-from-cart/${id}`,
+          {
+            method: "DELETE",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setIsCartAdded(false);
+          toast.error("Book is  to removed from Cart");
+        } else {
+          toast.error(data.message || "Failed to update Carts");
+        }
+      } else {
+        // Add book to cart
+        const res = await fetch(
+          `http://localhost:1000/api/store/add-book-to-cart/${id}`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const data = await res.json();
+        if (res.ok) {
+          setIsCartAdded(true);
+         toast.success("Book is  to added to Cart");
+        } else {
+          toast.error(data.message || "Failed to update Carts");
+        }
+      }
+    } catch (error) {
+      console.error("Cart operation failed", error);
     }
-    toast.success("Book added to cart");
-    setIsCartAdded(true);
   };
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -121,25 +180,24 @@ const ViewBookDetail = () => {
                 <FaHeart size={25} color="red" />
               ) : (
                 <FaRegHeart size={25} />
-              )}
-              {" "} {isFavAdded ? "Remove from Favourites" : "Add to Favourites"}
+              )}{" "}
+              {isFavAdded ? "Remove from Favourites" : "Added to Favourites"}
             </button>
 
             <button
-              onClick={() => {
-                if (!isLoggedIn) {
-                  toast.info("You should log in");
-                  return;
-                }
-                handleAddToCart();
-              }}
+              onClick={handleAddToCart}
               className={`book-btn ${isLoggedIn ? "enabled" : "disabled"}`}
               disabled={!isLoggedIn}
               aria-label="Add to cart"
               type="button"
             >
-              <FaShoppingCart size={25} color={isCartAdded ? "green" : undefined} />
-              {" "} Add to Cart
+              {isCartAdded ? (
+                <FaShoppingCart size={25} color="green" />
+              ) : (
+                <FaShoppingCart size={25} />
+              )}
+              {""}
+              {isCartAdded ? "Remove from Cart" : "Add to Cart"}
             </button>
           </div>
         </div>

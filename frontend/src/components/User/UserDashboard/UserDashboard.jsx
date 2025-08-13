@@ -32,7 +32,6 @@ const UserDashboard = () => {
       setLoading(false);
       return;
     }
-
     fetch("http://localhost:1000/api/store/user/information", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -112,6 +111,14 @@ const UserDashboard = () => {
               className={({ isActive }) => (isActive ? "active" : "")}
             >
               Favorites
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/user-dashboard/carts"
+              className={({ isActive }) => (isActive ? "active" : "")}
+            >
+              Carts
             </NavLink>
           </li>
           <li>

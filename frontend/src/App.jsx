@@ -15,6 +15,7 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Profile from "./components/User/Profile/Profile";
 import Favourites from "./components/User/Favourites/Favourites";
+import Carts from "./components/User/Carts/Carts";
 import OrderHistory from "./components/User/OrderHistory/OrderHistory";
 import ManageAddress from "./components/User/ManageAddress/ManageAddress";
 import AdminDashboard from "./components/Admin/AdminDashboard/AdminDashboard";
@@ -78,6 +79,7 @@ function App() {
             <Route path="all-books" element={<Allbooks />} />
             <Route path="get-book/:id" element={<ViewBook />} />
             <Route path="favorites" element={<Favourites />} />
+            <Route path="carts" element={<Carts/>}  />
             <Route path="order-history" element={<OrderHistory />} />
             <Route path="manage-address" element={<ManageAddress />} />
              <Route path="get-book/:id" element={<ViewBook />} /> 

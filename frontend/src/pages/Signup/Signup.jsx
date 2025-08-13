@@ -149,7 +149,7 @@ const Signup = () => {
     <div className="main">
       <div className="container">
         <div className="formContainer">
-          <h2 className="title">Signup Form</h2>
+          <h2 className="title">Sign Me Up!</h2>
 
           {/* Show backend error message */}
           {backendError && (
