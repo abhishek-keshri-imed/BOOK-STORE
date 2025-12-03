@@ -1,4 +1,4 @@
-# 📚 BOOK STORE – Full-Stack Project
+# BOOK STORE 
 
 A full-stack Book Store application built using **React (Frontend)** and **Node.js / Express (Backend)**.
 
