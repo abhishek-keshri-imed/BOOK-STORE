@@ -1,20 +1,28 @@
-🛠️ Prerequisites
+# 📚 BOOK STORE – Full-Stack Project
+
+A full-stack Book Store application built using **React (Frontend)** and **Node.js / Express (Backend)**.
+
+---
+
+# Prerequisites
 Before starting, ensure you have installed:
-  Node.js (LTS recommended)
-  npm or yarn
-  Git
+- Node.js (LTS recommended)
+- npm or yarn
+- Git
 
-1. Clone the Repository
-  git clone https://github.com/abhishek-keshri-imed/BOOK-STORE.git
-  cd BOOK-STORE
+---
 
-2. Backend Setup
-  cd backend
-  npm install
-  npm run dev
+# Clone the Repository
+```bash
+git clone https://github.com/abhishek-keshri-imed/BOOK-STORE.git
+cd BOOK-STORE
 
-3. Frontend Setup
-   cd frontend
-   npm install
-   npm start
+# Backend Setup
+cd backend
+npm install
+nodemon app.js
 
+# front Setup
+cd frontend
+npm install
+npm start
