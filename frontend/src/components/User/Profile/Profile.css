@@ -1,0 +1,89 @@
+/* Container for centering profile card */
+.profile-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background: #f4f7fa;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Card with subtle shadow and rounded corners */
+.profile-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  width: 350px;
+  padding: 30px 25px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image container with relative position for label */
+.profile-image-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Change button on image */
+.upload-label {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: #0052cc;
+  color: white;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  transition: background-color 0.3s ease;
+}
+
+.upload-label:hover {
+  background: #003d99;
+}
+
+/* User info */
+.profile-info {
+  margin-top: 15px;
+}
+
+.profile-username {
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.profile-email {
+  font-size: 1rem;
+  color: #666;
+  letter-spacing: 0.02em;
+}
+
+/* Loading and error messages */
+.loading,
+.error {
+  font-size: 1.2rem;
+  color: #777;
+  text-align: center;
+  margin-top: 40px;
+}

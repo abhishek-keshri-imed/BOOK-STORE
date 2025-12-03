@@ -1,0 +1,142 @@
+/* Hero section container */
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;           /* Vertically align content */
+  width: 100%;                   /* Full width */
+  padding: 40px 40px;
+  min-height: 83.4vh;            /* Adjust based on screen size */
+  gap: 20px;
+  background-color: white;     /* Optional background */
+  overflow: hidden;  /* Prevent overflow */
+}
+
+/* Left content styling */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 20px;
+}
+
+/* New div for text inside hero-left */
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 600px; /* Optional: restrict text width for better readability */
+}
+
+.hero-left h1 {
+  font-size: 4rem; /* Increase this value for larger headings */
+  font-weight: bold;
+  color: #edc510;  /* Gold color for the heading */
+  margin-bottom: 20px;
+}
+
+.hero-left p {
+  font-size: 1.2rem;
+  color: #333;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+
+/* Transparent button styling */
+.transparent-button {
+  background-color: transparent;
+  border: 2px solid #edc510; /* Gold border */
+  color: #edc510; /* Gold text */
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  /* 🔥 Add these lines */
+  display: block;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  
+}
+
+a.transparent-button,
+.transparent-button {
+  text-decoration: none !important;
+}
+
+/* On hover: change background and text color */
+.transparent-button:hover {
+  background-color: #edc510; /* Gold background on hover */
+  color: white; /* White text on hover */
+}
+
+/* Right image styling (without hover effect) */
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  max-width: 85%;
+  height: auto;
+  /* Remove the hover effect here */
+  transition: none; /* Ensure no transition effect */
+}
+
+/* Remove hover effect for right image */
+
+/* Responsive design for smaller screens */
+@media (max-width: 1024px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-right: 30px;
+  }
+
+  .hero-left, .hero-right {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-left {
+    padding-bottom: 20px;
+    padding-right: 20px;
+  }
+
+  .hero-left h1 {
+    font-size: 3rem;  /* Smaller heading on tablets */
+  }
+
+  .hero-left p {
+    font-size: 1rem;  /* Slightly smaller paragraph text on smaller screens */
+  }
+
+  .hero-image {
+    max-width: 90%;  /* Scale image width for small screens */
+  }
+
+ .transparent-button {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-left h1 {
+    font-size: 2.5rem;  /* Even smaller heading on mobile */
+  }
+
+  .hero-left p {
+    font-size: 0.9rem;  /* Adjust text for mobile readability */
+  }
+
+  .transparent-button {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+ 
+}

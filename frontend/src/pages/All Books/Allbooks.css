@@ -1,0 +1,134 @@
+.main {
+  position: relative;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Books container with dynamic columns */
+.books-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* default: 6 columns */
+  gap: 20px; /* equal gap between books */
+  opacity: 1;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  padding: 10px 0;
+  overflow-x: hidden;
+}
+
+/* If user is NOT logged in, add this class to main container */
+.main.logged-out .books-container {
+  grid-template-columns: repeat(7, 1fr); /* 7 columns */
+}
+
+.book-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+}
+
+.book-card img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.book-card h5 {
+  margin: 8px 0;
+}
+
+/* Pagination styles */
+.pagination-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+  padding-bottom: 10px;
+}
+
+.pagination-buttons button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-weight: 300;
+  font-size: 10px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.4);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 10px;
+  aspect-ratio: 1 / 1;
+}
+
+.pagination-buttons button:hover:not(:disabled) {
+  background-color: #0056b3;
+  box-shadow: 0 6px 12px rgba(0, 86, 179, 0.6);
+  transform: scale(1.1);
+}
+
+.pagination-buttons button:disabled {
+  background-color: #c0c0c0;
+  box-shadow: none;
+  cursor: not-allowed;
+  color: #666;
+  transform: none;
+  pointer-events: none;
+}
+
+.pagination-buttons button:focus-visible {
+  outline: 2px solid #0056b3;
+  outline-offset: 2px;
+}
+
+.pagination-buttons button.prev-btn,
+.pagination-buttons button.next-btn {
+  font-size: 10px;
+  padding: 6px 10px;
+  border-radius: 50%;
+}
+
+.search-bar {
+  width: 60%;
+  max-width: 600px;
+  margin: 0 auto 30px auto;
+  display: block;
+  padding: 12px 18px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.1);
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.2);
+}
+
+  @media (max-width: 768px) {
+  .books-container {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .search-bar {
+    width: 90%;
+  }
+
+  .pagination-buttons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  }

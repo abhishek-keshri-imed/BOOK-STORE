@@ -1,0 +1,77 @@
+.recent-books-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+  gap: 30px;
+  padding: 15px;
+
+}
+
+.recent-book-card {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.recent-book-card :hover {
+  transform: translateY(-5px);
+}
+
+.recent-book-card  img {
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.recent-book-card  h3 {
+  font-size: 1.1rem;
+  margin: 10px 0 6px;
+  color: #333;
+  text-align: center;
+}
+
+.recent-book-card  p {
+  font-size: 0.9rem;
+  color: #666;
+  text-align: center;
+  margin: 0;
+}
+
+.recent-book-card :hover img {
+  transform: scale(1.1); /* Enlarge image on hover */
+  cursor: pointer;
+}
+
+.recent-books-heading {
+  text-align: center;
+  font-size: 2rem; /* Large size for the heading */
+  font-weight: bold; /* Make the font bold */
+  margin-bottom: 20px; /* Space below the heading */
+  color: #2c3e50; /* Dark color for better contrast */
+  text-transform: uppercase; /* Make the heading uppercase for emphasis */
+  padding-top: 20px; /* Space at the top */
+}
+
+/* Media query to adjust font size on smaller screens */
+@media (max-width: 600px) {
+  .recent-books-heading {
+    font-size: 1.6rem; /* Smaller font size for smaller screens */
+  }
+  .recent-books-container{
+  justify-content: center; 
+}
+}
+
+.recent-book-card-link {
+  text-decoration: none;
+  color: inherit;
+}

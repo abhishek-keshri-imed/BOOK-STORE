@@ -1,0 +1,140 @@
+/* General About Page Styling */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  color: #333;
+}
+
+/* Introduction Section */
+.about-introduction {
+  width: 100%;
+  max-width: 80%; 
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-introduction h1 {
+  font-size: 2rem;
+  color: #333;
+}
+
+.about-introduction p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+/* Mission Section */
+.about-mission {
+  width: 100%;
+  max-width: 80%; 
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.about-mission h2 {
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.about-mission p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* Team Section */
+.about-team {
+  width: 100%;
+  max-width: 80%;  
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-team h2 {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+/* Flexbox layout for team members */
+.team-members {
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Space between members */
+  flex-wrap: wrap; /* Ensure wrapping on small screens */
+}
+
+.team-member {
+  text-align: center;
+  width: 220px; /* Set a fixed width for each member */
+  padding-left: 30px;
+}
+
+.team-img {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.team-member h3 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  padding-right: 30px;
+}
+
+.team-member p {
+  font-size: 1rem;
+  color: #777;
+  padding-right: 30px;
+}
+
+/* Contact Section */
+.about-contact {
+  width: 100%;
+  max-width: 80%; 
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-contact h2 {
+  font-size: 1.5rem;
+  color: #007bff;
+}
+
+.contact-link {
+  font-size: 1.2rem;
+  color: #007bff;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 10px;
+  }
+
+  .about-introduction h1,
+  .about-mission h2,
+  .about-team h2,
+  .about-contact h2 {
+    font-size: 1.2rem;
+  }
+
+  .team-members {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .team-member {
+    margin-bottom: 20px;
+  }
+}

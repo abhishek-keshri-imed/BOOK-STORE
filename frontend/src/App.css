@@ -2,3 +2,32 @@
 {
 font-family: sans-serif,serif;
 }
+
+/* Make body and html full height */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+}
+
+/* Wrapper for the whole page */
+.page-wrapper {
+  min-height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content grows to fill space */
+.page-wrapper > *:not(.footer) {
+  flex: 1;
+}
+.Toastify__toast-container {
+  position: fixed !important;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0 !important;
+  padding: 0 !important;
+  z-index: 9999;
+}
