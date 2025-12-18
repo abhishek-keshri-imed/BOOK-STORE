@@ -11,7 +11,7 @@ const Allbooks = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [animating, setAnimating] = useState(false);
 
-  const isLoggedIn = !!localStorage.getItem("token");
+  const isLoggedIn = !!sessionStorage.getItem("token");
   const limit = isLoggedIn ? 6 : 7;
 
   useEffect(() => {

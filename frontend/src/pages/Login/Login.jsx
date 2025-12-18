@@ -92,12 +92,12 @@ const Login = () => {
         return;
       }
 
-      //  Login success - Save info in localStorage
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("userId", data.userId || "");
-      localStorage.setItem("role", data.role || "");
+      //  Login success - Save info in sessionStorage
+      sessionStorage.setItem("token", data.token);
+      sessionStorage.setItem("userId", data.userId || "");
+      sessionStorage.setItem("role", data.role || "");
 
-      console.log("Stored Token:", localStorage.getItem("token"));
+      console.log("Stored Token:", sessionStorage.getItem("token"));
       // Success: dispatch loginSuccess with user info from backend
       dispatch(
         loginSuccess({

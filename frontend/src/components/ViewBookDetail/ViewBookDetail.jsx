@@ -8,7 +8,7 @@ const ViewBookDetail = () => {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const isLoggedIn = !!token;
 
   // State to track if book is favorited and added to cart

@@ -9,7 +9,7 @@ const Profile = () => {
 
   const fetchUser = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       const res = await fetch("http://localhost:1000/api/store/user/information", {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -34,7 +34,7 @@ const Profile = () => {
       const base64Image = reader.result;
 
       try {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const res = await fetch("http://localhost:1000/api/store/user/update-profile-pic", {
           method: "PATCH",
           headers: {

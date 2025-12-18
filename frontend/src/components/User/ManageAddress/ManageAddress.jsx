@@ -20,7 +20,7 @@ const ManageAddress = () => {
           "http://localhost:1000/api/store/user/information",
           {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${sessionStorage.getItem("token")}`,
             },
           }
         );
@@ -54,7 +54,7 @@ const ManageAddress = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },
           body: JSON.stringify({ address: combinedAddress }),
         }

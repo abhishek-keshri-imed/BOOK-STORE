@@ -23,7 +23,7 @@ const AdminDashboard = () => {
 
   // Fetch admin user info from API
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       setError("No auth token found. Please login.");
       setLoading(false);
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
 
   const handleLogout = () => {
     toast.success("You have been logged out.");
-    localStorage.clear();
+    sessionStorage.clear();
     dispatch(logout());
     navigate("/login");
   };

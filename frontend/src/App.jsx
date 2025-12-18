@@ -35,9 +35,9 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userId = localStorage.getItem("userId");
-    const role = localStorage.getItem("role");
+    const token = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
+    const role = sessionStorage.getItem("role");
 
     if (token) {
       dispatch(

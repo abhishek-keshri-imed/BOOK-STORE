@@ -26,7 +26,7 @@ const UserDashboard = () => {
 
   // Fetch user info
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       setError("No auth token found. Please login.");
       setLoading(false);
@@ -58,7 +58,7 @@ const UserDashboard = () => {
 
   const handleLogout = () => {
     toast.success("You have been logged out.");
-    localStorage.clear(); // Clear token, user info etc.
+    sessionStorage.clear(); // Clear token, user info etc.
     dispatch(logout()); // Clear Redux state
     navigate("/"); // Redirect SPA style, no reload
   };

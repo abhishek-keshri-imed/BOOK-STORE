@@ -14,7 +14,7 @@ const Carts = () => {
      useEffect(() => {
     const fetchCarts = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const response = await axios.get(
           "http://localhost:1000/api/store/get-all-cart",
           {
