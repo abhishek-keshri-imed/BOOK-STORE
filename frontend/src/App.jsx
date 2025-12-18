@@ -27,6 +27,7 @@ import BookStock from "./components/Admin/BookStock/BookStock";
 import ManageUsers from "./components/Admin/ManageUsers/ManageUsers";
 import ManageOrder from "./components/Admin/ManageOrder/ManageOrder";
 import Analytics from "./components/Admin/Analytics/Analytics";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -72,6 +73,7 @@ function App() {
           <Route path="/get-book/:id" element={<ViewBook />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
           {/* Nested Dashboard Routes */}
           <Route path="/user-dashboard" element={<UserDashboard />}>

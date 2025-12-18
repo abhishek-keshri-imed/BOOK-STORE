@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { FaBars, FaUser } from "react-icons/fa";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { FaSignOutAlt } from "react-icons/fa";
-
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,8 +11,6 @@ const Navbar = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const userRole =
     useSelector((state) => state.auth.role) || sessionStorage.getItem("role");
-
-  
 
   let homePath = "/";
   if (isAuthenticated && userRole === "admin") {
@@ -32,15 +29,11 @@ const Navbar = () => {
     }
 
     if (userRole === "user") {
-      return [
-        
-      ];
+      return [];
     }
 
     if (userRole === "admin") {
-      return [
-        
-      ];
+      return [];
     }
 
     return [];
@@ -57,17 +50,14 @@ const Navbar = () => {
         to={isAuthenticated ? "#" : "/"}
         className="navbar-brand d-flex align-items-center"
         id="navbar-logo"
-        onClick={(e)=>{
-         if (isAuthenticated)
-         {
-          e.preventDefault(); // block navigation
-         }
-
+        onClick={(e) => {
+          if (isAuthenticated) {
+            e.preventDefault(); // block navigation
+          }
         }}
-        
       >
         <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStzhq6ESJxW7LOn_61kgRwFSChCRoNlbqSkQ&s"
+          src="https://static.vecteezy.com/system/resources/previews/042/534/108/non_2x/reading-book-logo-icon-illustration-design-vector.jpg"
           alt="BookShop Logo"
           className="navbar-logo-img"
         />

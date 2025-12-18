@@ -4,8 +4,17 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authenticateToken = require("./userAuth");
+const { sendOTPEmail } = require("../services/emailService");
 
 require("dotenv").config(); // Load environment variables
+
+// Helper to generate 6-digit OTP
+const generateOTP = () =>
+  Math.floor(100000 + Math.random() * 900000).toString();
+
+// Helper to use fetch for EmailJS REST API
+const fetch = (...args) =>
+  import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 // Secret key for JWT from environment variables
 const JWT_SECRET = process.env.JWT_SECRET; // Using the secret key from .env
@@ -168,26 +177,107 @@ router.put("/user/update-address", authenticateToken, async (req, res) => {
   }
 });
 
-router.patch("/user/update-profile-pic", authenticateToken, async (req, res) => {
-  try {
-    const { userId } = req.user;
-    const { profileImage } = req.body;  // or avatar, based on your fix
-    const user = await User.findByIdAndUpdate(
-      userId,
-      { avatar: profileImage },  
-      { new: true, select: "-password" }
-    );
+router.patch(
+  "/user/update-profile-pic",
+  authenticateToken,
+  async (req, res) => {
+    try {
+      const { userId } = req.user;
+      const { profileImage } = req.body; // or avatar, based on your fix
+      const user = await User.findByIdAndUpdate(
+        userId,
+        { avatar: profileImage },
+        { new: true, select: "-password" }
+      );
 
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      res.status(200).json({ message: "Profile picture updated", user });
+    } catch (error) {
+      console.error("Error in update-profile-pic route:", error);
+      res.status(500).json({ message: "Error updating profile picture" });
+    }
+  }
+);
+
+// Forgot Password: Send OTP
+router.post("/user/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    res.status(200).json({ message: "Profile picture updated", user });
-  } catch (error) {
-    console.error("Error in update-profile-pic route:", error);
-    res.status(500).json({ message: "Error updating profile picture" });
+    // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // OTP valid for 10 minutes
+    const expiry = new Date(Date.now() + 10 * 60 * 1000);
+
+    user.forgotPasswordOTP = otp;
+    user.forgotPasswordOTPExpiry = expiry;
+    await user.save();
+
+    // Send OTP email (throws error if fails)
+    await sendOTPEmail(email, otp);
+
+    res.status(200).json({ message: "OTP sent to your email" });
+  } catch (err) {
+    console.error("Forgot password error:", err.message);
+    res.status(500).json({ message: "Failed to send OTP" });
   }
 });
 
+// Verify OTP
+router.post("/user/verify-otp", async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    const user = await User.findOne({ email });
+    const now = new Date();
+
+    // Convert OTP to string before comparison
+    if (
+      !user.forgotPasswordOTP ||
+      user.forgotPasswordOTP !== otp.toString() ||
+      now > new Date(user.forgotPasswordOTPExpiry)
+    ) {
+      return res.status(400).json({ message: "Invalid or expired OTP" });
+    }
+    res.status(200).json({ message: "OTP verified" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "OTP verification failed" });
+  }
+});
+
+// Reset Password
+router.post("/user/reset-password", async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    if (!passwordPattern.test(newPassword)) {
+      return res.status(400).json({
+        message:
+          "Password must include uppercase, lowercase, number & special character",
+      });
+    }
+
+    const user = await User.findOne({ email });
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    user.forgotPasswordOTP = undefined;
+    user.forgotPasswordOTPExpiry = undefined;
+    await user.save();
+
+    res.status(200).json({ message: "Password reset successful" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Password reset failed" });
+  }
+});
 
 module.exports = router; // Export the router for use in the main app

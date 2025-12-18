@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema(
         ref: "order",
       },
     ],
+
+    // OTP fields for forgot password
+    forgotPasswordOTP: { type: String, default: null },
+    forgotPasswordOTPExpiry: { type: Date, default: null },
   },
   { timestamps: true }
 );
